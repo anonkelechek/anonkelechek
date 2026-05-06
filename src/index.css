@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Mystic Minimalist Dark Mode */
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --text-primary: #ffffff;
+  --text-secondary: #888888;
+  
+  /* Brand */
+  --brand-primary: #ffffff;
+  --brand-hover: #cccccc;
+  --brand-light: #1a1a1a;
+  
+  --accent-red: #ffffff;
+  --accent-green: #ffffff;
+  --accent-yellow: #ffffff;
+  
+  /* Borders and Shadows - No rounded edges */
+  --border-color: #222222;
+  --shadow-sm: 0 0 10px rgba(255, 255, 255, 0.02);
+  --shadow-md: 0 0 15px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 0 25px rgba(255, 255, 255, 0.08);
+  
+  /* Radii - Sharp angles only */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-full: 0px;
+  
+  /* Layout */
+  --nav-height: 56px;
+  --content-width: 680px;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-y: scroll;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+input, textarea {
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+/* Utility Classes */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.flex-col { flex-direction: column; }
+.gap-1 { gap: 4px; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--brand-primary);
+  color: black;
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: #111;
+}
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--text-primary);
+  transition: background-color 0.3s;
+  border: 1px solid var(--border-color);
+}
+
+.btn-icon:hover {
+  background-color: #111;
+}
+
+/* Cards */
+.card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+/* Micro-animations */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+.hover-scale:hover {
+  /* Minimal scaling for mystic vibe */
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.hover-bg {
+  border-radius: var(--radius-md);
+  transition: background-color 0.3s ease;
+  padding: 8px;
+}
+.hover-bg:hover {
+  background-color: #111;
+}
