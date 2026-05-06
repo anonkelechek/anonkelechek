@@ -421,8 +421,8 @@ function App() {
         <div className="card" style={{ maxWidth: '400px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(8px)', background: 'rgba(0,0,0,0.6)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '8px' }}>ВХОД В ПОДПОЛЬЕ</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', fontSize: '0.85rem', lineHeight: 1.5 }}>
-            Инфо ниже используется только для шифрования профиля. <br />
-            <span style={{ color: '#ff4444', fontWeight: 600 }}>Это гарантирует анонимность. Данные не отображаются в сети и не видны в постах.</span>
+            ВАЖНО! Инфо ниже используется только для шифрования профиля. <br />
+            <span style={{ color: '#ff4444', fontWeight: 600 }}> ВАЖНО! Это гарантирует анонимность. Данные не отображаются в сети и не видны в постах.</span>
           </p>
 
           <input
