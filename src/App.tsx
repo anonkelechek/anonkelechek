@@ -386,20 +386,7 @@ function App() {
       {/* Navbar */}
       <nav className="navbar" style={{ borderBottom: '1px solid var(--border-color)', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(12px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px' }}>
         <div className="nav-left" style={{ display: 'flex', alignItems: 'center', gap: '20px', flex: 1 }}>
-          <div className="logo" style={{ 
-            background: 'transparent', 
-            color: role === 'admin' ? '#ff4444' : 'white', 
-            cursor: 'pointer', 
-            padding: 0, 
-            fontWeight: 'bold', 
-            letterSpacing: '1px', 
-            fontSize: '0.9rem',
-            whiteSpace: 'nowrap',
-            flexShrink: 0
-          }} onClick={() => setActiveView('feed')}>
-            {role === 'admin' ? 'КЕЛЕЧЕК:АДМИН' : 'КЕЛЕЧЕК АНОН'}
-          </div>
-          <div className="search-bar" style={{ borderRadius: '0', border: '1px solid var(--border-color)', background: 'transparent', maxWidth: '300px', width: '100%' }}>
+          <div className="search-bar" style={{ borderRadius: '0', border: '1px solid var(--border-color)', background: 'transparent', maxWidth: '300px', width: '100%', margin: 0 }}>
             <Search size={18} />
             <input type="text" placeholder="Поиск..." />
           </div>
@@ -556,6 +543,27 @@ function App() {
           )}
         </section>
       </main>
+
+      {/* Floating Brand Badge */}
+      <div style={{ 
+        position: 'fixed', 
+        bottom: '20px', 
+        right: '20px', 
+        padding: '10px 20px', 
+        background: 'rgba(0,0,0,0.5)', 
+        backdropFilter: 'blur(10px)', 
+        border: '1px solid var(--border-color)', 
+        color: role === 'admin' ? '#ff4444' : '#fff', 
+        fontFamily: 'monospace', 
+        letterSpacing: '3px', 
+        fontSize: '0.75rem', 
+        textTransform: 'uppercase',
+        zIndex: 1000,
+        pointerEvents: 'none',
+        opacity: 0.8
+      }}>
+        {role === 'admin' ? 'KELECHEK:ADMIN_MODE' : 'KELECHEK:ANON_VOID'}
+      </div>
     </div>
   );
 }
