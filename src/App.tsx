@@ -3,11 +3,9 @@ import {
   Search,
   Home,
   MessageCircle,
-  Menu,
   Settings,
   Trash2,
   Save,
-  MoreHorizontal,
   XCircle,
   UserX
 } from 'lucide-react';
@@ -48,18 +46,8 @@ const QUIZ_QUESTIONS = [
 ];
 
 // Компонент Логотипа для переиспользования
-const MainLogo = ({ height = '40px', style = {} }: { height?: string, style?: React.CSSProperties }) => (
-  <img 
-    src="/logo.png" 
-    alt="КЕЛЕЧЕК MIT АНОН" 
-    style={{ 
-      height, 
-      filter: 'invert(1)', // Делаем черный текст белым, а белый фон - прозрачным/черным
-      mixBlendMode: 'screen',
-      ...style 
-    }} 
-  />
-);
+// Компонент Логотипа больше не нужен как отдельный тег, так как он в фоне
+
 
 function App() {
   const [quizStatus, setQuizStatus] = useState<'pending' | 'passed' | 'failed'>('pending');
@@ -290,7 +278,7 @@ function App() {
 
   if (quizStatus === 'failed') {
     return (
-      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("/logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#ff4444', fontFamily: 'monospace' }}>
+      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("./logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#ff4444', fontFamily: 'monospace' }}>
         <h1 style={{ letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px' }}>Доступ запрещен</h1>
         <p style={{ letterSpacing: '1px' }}>Вы не из нашей школы. Ваше устройство заблокировано.</p>
       </div>
@@ -300,8 +288,8 @@ function App() {
   if (quizStatus === 'pending') {
     const currentQ = QUIZ_QUESTIONS[currentQuizIndex];
     return (
-      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("/logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexDirection: 'column' }}>
-        <div className="card" style={{ maxWidth: '500px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(5px)', background: 'rgba(0,0,0,0.7)' }}>
+      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("./logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexDirection: 'column' }}>
+        <div className="card" style={{ maxWidth: '500px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(8px)', background: 'rgba(0,0,0,0.6)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '8px' }}>ПРОВЕРКА ЛИЧНОСТИ</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '32px', fontSize: '0.9rem' }}>Вопрос {currentQuizIndex + 1} из {QUIZ_QUESTIONS.length}</p>
           <h3 style={{ marginBottom: '32px', fontWeight: 400, lineHeight: 1.5 }}>{currentQ.question}</h3>
@@ -319,8 +307,8 @@ function App() {
 
   if (roleStatus === 'pending') {
     return (
-      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("/logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexDirection: 'column' }}>
-        <div className="card" style={{ maxWidth: '500px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(5px)', background: 'rgba(0,0,0,0.7)' }}>
+      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("./logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexDirection: 'column' }}>
+        <div className="card" style={{ maxWidth: '500px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(8px)', background: 'rgba(0,0,0,0.6)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '32px' }}>РЕЖИМ ДОСТУПА</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <button className="btn btn-secondary" style={{ borderRadius: '0', width: '100%', padding: '16px', letterSpacing: '1px' }} onClick={() => setRoleStatus('student_login')}>
@@ -356,8 +344,8 @@ function App() {
 
   if (roleStatus === 'student_login') {
     return (
-      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("/logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexDirection: 'column' }}>
-        <div className="card" style={{ maxWidth: '400px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(5px)', background: 'rgba(0,0,0,0.7)' }}>
+      <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("./logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexDirection: 'column' }}>
+        <div className="card" style={{ maxWidth: '400px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(8px)', background: 'rgba(0,0,0,0.6)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '8px' }}>ВХОД В ПОДПОЛЬЕ</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', fontSize: '0.85rem', lineHeight: 1.5 }}>
             Введите ваши настоящие данные для идентификации. <br/>
@@ -394,9 +382,9 @@ function App() {
   }
 
   return (
-    <div className="app-container" style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url("/logo.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="app-container" style={{ backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url("./logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', minHeight: '100vh' }}>
       {/* Navbar */}
-      <nav className="navbar" style={{ borderBottom: '1px solid var(--border-color)', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)' }}>
+      <nav className="navbar" style={{ borderBottom: '1px solid var(--border-color)', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(12px)' }}>
         <div className="nav-left">
           <div className="logo" style={{ background: 'transparent', color: role === 'admin' ? '#ff4444' : 'white', cursor: 'pointer', padding: 0, fontWeight: 'bold', letterSpacing: '2px' }} onClick={() => setActiveView('feed')}>
             {role === 'admin' ? 'КЕЛЕЧЕК:АДМИН' : 'КЕЛЕЧЕК АНОН'}
