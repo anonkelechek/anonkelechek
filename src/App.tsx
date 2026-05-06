@@ -112,6 +112,27 @@ function App() {
   }, [quizStatus]);
 
   useEffect(() => {
+    if (quizStatus !== 'passed' || roleStatus !== 'done' || !identity || role === 'admin') return;
+    
+    // Следим за тем, не удалил ли нас админ
+    try {
+      const unsubscribe = onSnapshot(doc(db, 'users', identity), (snapshot) => {
+        if (!snapshot.exists()) {
+          // НАС УДАЛИЛИ! Бан.
+          localStorage.clear();
+          localStorage.setItem('void_quiz_status', 'failed');
+          setQuizStatus('failed');
+          setRoleStatus('pending');
+          alert("Ваш доступ был аннулирован администрацией. Устройство заблокировано.");
+        }
+      });
+      return () => unsubscribe();
+    } catch (e) {
+      console.error("Ошибка слежения за статусом пользователя", e);
+    }
+  }, [quizStatus, roleStatus, identity, role]);
+
+  useEffect(() => {
     if (quizStatus !== 'passed' || roleStatus !== 'done') return;
     try {
       const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
