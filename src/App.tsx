@@ -210,6 +210,13 @@ function App() {
       alert("Заполните все поля");
       return;
     }
+
+    // Проверка на полное ФИО (минимум два слова)
+    const nameParts = studentRealName.trim().split(/\s+/);
+    if (nameParts.length < 2) {
+      alert("Введите ваше полное ФИО (Фамилия и Имя)");
+      return;
+    }
     
     try {
       await setDoc(doc(db, 'users', studentNickname), {
@@ -414,20 +421,20 @@ function App() {
         <div className="card" style={{ maxWidth: '400px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(8px)', background: 'rgba(0,0,0,0.6)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '8px' }}>ВХОД В ПОДПОЛЬЕ</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', fontSize: '0.85rem', lineHeight: 1.5 }}>
-            Введите ваши настоящие данные для идентификации. <br/>
-            <span style={{color: '#ff4444', fontWeight: 600}}>Эту информацию видите только вы. В постах будет отображаться только ваш Никнейм.</span>
+            Для генерации вашего уникального ключа шифрования введите реальные данные. <br/>
+            <span style={{color: '#ff4444', fontWeight: 600}}>Это необходимо для защиты вашего устройства от взлома. Система автоматически скроет ФИО сразу после входа.</span>
           </p>
           
           <input 
             type="text" 
-            placeholder="Ваше настоящее ФИО" 
+            placeholder="Ваше полное настоящее ФИО" 
             value={studentRealName}
             onChange={(e) => setStudentRealName(e.target.value)}
             style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0', marginBottom: '12px' }}
           />
           <input 
             type="text" 
-            placeholder="Ваш Никнейм (псевдоним для постов)" 
+            placeholder="ВАШ НИК (СТРОГО НЕ ВВОДИТЬ НАСТОЯЩЕЕ ИМЯ!)" 
             value={studentNickname}
             onChange={(e) => setStudentNickname(e.target.value)}
             style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0', marginBottom: '12px' }}
