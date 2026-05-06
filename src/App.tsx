@@ -384,12 +384,22 @@ function App() {
   return (
     <div className="app-container" style={{ backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url("./logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', minHeight: '100vh' }}>
       {/* Navbar */}
-      <nav className="navbar" style={{ borderBottom: '1px solid var(--border-color)', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(12px)' }}>
-        <div className="nav-left">
-          <div className="logo" style={{ background: 'transparent', color: role === 'admin' ? '#ff4444' : 'white', cursor: 'pointer', padding: 0, fontWeight: 'bold', letterSpacing: '2px' }} onClick={() => setActiveView('feed')}>
+      <nav className="navbar" style={{ borderBottom: '1px solid var(--border-color)', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(12px)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 20px' }}>
+        <div className="nav-left" style={{ display: 'flex', alignItems: 'center', gap: '20px', flex: 1 }}>
+          <div className="logo" style={{ 
+            background: 'transparent', 
+            color: role === 'admin' ? '#ff4444' : 'white', 
+            cursor: 'pointer', 
+            padding: 0, 
+            fontWeight: 'bold', 
+            letterSpacing: '1px', 
+            fontSize: '0.9rem',
+            whiteSpace: 'nowrap',
+            flexShrink: 0
+          }} onClick={() => setActiveView('feed')}>
             {role === 'admin' ? 'КЕЛЕЧЕК:АДМИН' : 'КЕЛЕЧЕК АНОН'}
           </div>
-          <div className="search-bar" style={{ borderRadius: '0', border: '1px solid var(--border-color)', background: 'transparent', marginLeft: '16px' }}>
+          <div className="search-bar" style={{ borderRadius: '0', border: '1px solid var(--border-color)', background: 'transparent', maxWidth: '300px', width: '100%' }}>
             <Search size={18} />
             <input type="text" placeholder="Поиск..." />
           </div>
