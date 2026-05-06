@@ -51,6 +51,7 @@ const QUIZ_QUESTIONS = [
 
 function App() {
   const [quizStatus, setQuizStatus] = useState<'pending' | 'passed' | 'failed'>('pending');
+  const [showWelcome, setShowWelcome] = useState(true);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
 
   const [roleStatus, setRoleStatus] = useState<'pending' | 'admin_login' | 'student_login' | 'done'>('pending');
@@ -302,6 +303,50 @@ function App() {
       <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("./logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#ff4444', fontFamily: 'monospace' }}>
         <h1 style={{ letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '16px' }}>Доступ запрещен</h1>
         <p style={{ letterSpacing: '1px' }}>Вы не из нашей школы. Ваше устройство заблокировано.</p>
+      </div>
+    );
+  }
+
+  if (showWelcome) {
+    return (
+      <div 
+        onClick={() => setShowWelcome(false)}
+        onKeyDown={() => setShowWelcome(false)}
+        tabIndex={0}
+        style={{ 
+          height: '100vh', 
+          width: '100vw', 
+          backgroundColor: '#000', 
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("./logo.png")', 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          color: '#fff', 
+          cursor: 'pointer',
+          outline: 'none'
+        }}
+      >
+        <img src="./logo.png" style={{ width: '250px', marginBottom: '40px', filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.2))' }} alt="Logo" />
+        <h1 style={{ letterSpacing: '8px', fontSize: '1.2rem', marginBottom: '20px', fontWeight: 300, textAlign: 'center' }}>КЕЛЕЧЕК АНОН</h1>
+        <div style={{ 
+          fontFamily: 'monospace', 
+          animation: 'pulse 2s infinite', 
+          letterSpacing: '2px', 
+          fontSize: '0.8rem',
+          color: 'rgba(255,255,255,0.6)'
+        }}>
+          ДОБРО ПОЖАЛОВАТЬ. НАЖМИТЕ ЛЮБУЮ КЛАВИШУ.
+        </div>
+        <style>{`
+          @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+          }
+        `}</style>
       </div>
     );
   }
