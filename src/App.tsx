@@ -421,13 +421,13 @@ function App() {
         <div className="card" style={{ maxWidth: '400px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(8px)', background: 'rgba(0,0,0,0.6)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '8px' }}>ВХОД В ПОДПОЛЬЕ</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', fontSize: '0.85rem', lineHeight: 1.5 }}>
-            ВАЖНО! Инфо ниже используется только для шифрования профиля. <br />
-            <span style={{ color: '#ff4444', fontWeight: 600 }}> ВАЖНО! Это гарантирует анонимность. Данные не отображаются в сети и не видны в постах.</span>
+            ВАЖНО! Инфо ниже используется для создания постов через админа. <br />
+            <span style={{ color: '#ff4444', fontWeight: 600 }}>  ВАЖНО! Данные не отображаются в сети и видны только админу через которого идут посты.</span>
           </p>
 
           <input
             type="text"
-            placeholder="Ваше полное настоящее ФИО"
+            placeholder="ФИО"
             value={studentRealName}
             onChange={(e) => setStudentRealName(e.target.value)}
             style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0', marginBottom: '12px' }}
