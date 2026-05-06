@@ -9,11 +9,11 @@ import {
   XCircle,
   UserX
 } from 'lucide-react';
-import { 
-  collection, 
-  addDoc, 
-  onSnapshot, 
-  query, 
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
   orderBy,
   serverTimestamp,
   deleteDoc,
@@ -56,7 +56,7 @@ function App() {
 
   const [roleStatus, setRoleStatus] = useState<'pending' | 'admin_login' | 'student_login' | 'done'>('pending');
   const [role, setRole] = useState<'admin' | 'student'>('student');
-  
+
   const [adminPassword, setAdminPassword] = useState('');
   const [studentRealName, setStudentRealName] = useState('');
   const [studentNickname, setStudentNickname] = useState('');
@@ -67,7 +67,7 @@ function App() {
   const [postText, setPostText] = useState('');
   const [posts, setPosts] = useState<any[]>([]);
   const [adminUsers, setAdminUsers] = useState<any[]>([]);
-  
+
   const [identity, setIdentity] = useState('');
   const [tempIdentity, setTempIdentity] = useState('');
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -85,10 +85,10 @@ function App() {
 
   useEffect(() => {
     if (quizStatus !== 'passed') return;
-    
+
     const savedRoleStatus = localStorage.getItem('void_role_status');
     const savedRole = localStorage.getItem('void_role');
-    
+
     if (savedRoleStatus === 'done' && (savedRole === 'admin' || savedRole === 'student')) {
       setRoleStatus('done');
       setRole(savedRole as 'admin' | 'student');
@@ -114,7 +114,7 @@ function App() {
 
   useEffect(() => {
     if (quizStatus !== 'passed' || roleStatus !== 'done' || !identity || role === 'admin') return;
-    
+
     // Следим за тем, не удалил ли нас админ
     try {
       const unsubscribe = onSnapshot(doc(db, 'users', identity), (snapshot) => {
@@ -139,7 +139,7 @@ function App() {
       const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const fetchedPosts = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-        
+
         // Уведомления о новых постах (если это не первоначальная загрузка)
         if (!isInitialLoad) {
           snapshot.docChanges().forEach((change) => {
@@ -155,7 +155,7 @@ function App() {
             }
           });
         }
-        
+
         setPosts(fetchedPosts);
         setIsInitialLoad(false);
       });
@@ -217,7 +217,7 @@ function App() {
       alert("Введите ваше полное ФИО (Фамилия и Имя)");
       return;
     }
-    
+
     try {
       await setDoc(doc(db, 'users', studentNickname), {
         fullName: studentRealName,
@@ -225,11 +225,11 @@ function App() {
         identityCode: studentNickname,
         createdAt: serverTimestamp()
       });
-      
+
       localStorage.setItem('void_identity', studentNickname);
       setIdentity(studentNickname);
       setTempIdentity(studentNickname);
-      
+
       localStorage.setItem('void_role_status', 'done');
       localStorage.setItem('void_role', 'student');
       setRole('student');
@@ -267,7 +267,7 @@ function App() {
     if (!postText.trim()) return;
 
     const currentText = postText;
-    setPostText(''); 
+    setPostText('');
 
     try {
       await addDoc(collection(db, 'posts'), {
@@ -316,32 +316,32 @@ function App() {
 
   if (showWelcome) {
     return (
-      <div 
+      <div
         onClick={() => setShowWelcome(false)}
         onKeyDown={() => setShowWelcome(false)}
         tabIndex={0}
-        style={{ 
-          height: '100vh', 
-          width: '100vw', 
-          backgroundColor: '#000', 
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("./logo.png")', 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center', 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          color: '#fff', 
+        style={{
+          height: '100vh',
+          width: '100vw',
+          backgroundColor: '#000',
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("./logo.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#fff',
           cursor: 'pointer',
           outline: 'none'
         }}
       >
         <img src="./logo.png" style={{ width: '250px', marginBottom: '40px', filter: 'drop-shadow(0 0 20px rgba(255,255,255,0.2))' }} alt="Logo" />
         <h1 style={{ letterSpacing: '8px', fontSize: '1.2rem', marginBottom: '20px', fontWeight: 300, textAlign: 'center' }}>КЕЛЕЧЕК АНОН</h1>
-        <div style={{ 
-          fontFamily: 'monospace', 
-          animation: 'pulse 2s infinite', 
-          letterSpacing: '2px', 
+        <div style={{
+          fontFamily: 'monospace',
+          animation: 'pulse 2s infinite',
+          letterSpacing: '2px',
           fontSize: '0.8rem',
           color: 'rgba(255,255,255,0.6)'
         }}>
@@ -401,9 +401,9 @@ function App() {
       <div style={{ height: '100vh', width: '100vw', backgroundColor: '#000', backgroundImage: 'linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url("/logo.png")', backgroundSize: 'cover', backgroundPosition: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexDirection: 'column' }}>
         <div className="card" style={{ maxWidth: '400px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(5px)', background: 'rgba(0,0,0,0.7)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '24px', color: '#ff4444' }}>АДМИН ПАНЕЛЬ</h2>
-          <input 
-            type="password" 
-            placeholder="Пароль" 
+          <input
+            type="password"
+            placeholder="Пароль"
             value={adminPassword}
             onChange={(e) => setAdminPassword(e.target.value)}
             style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0', marginBottom: '16px', textAlign: 'center', letterSpacing: '4px' }}
@@ -421,27 +421,27 @@ function App() {
         <div className="card" style={{ maxWidth: '400px', width: '100%', borderRadius: '0', padding: '40px', textAlign: 'center', border: '1px solid var(--border-color)', backdropFilter: 'blur(8px)', background: 'rgba(0,0,0,0.6)' }}>
           <h2 style={{ letterSpacing: '2px', marginBottom: '8px' }}>ВХОД В ПОДПОЛЬЕ</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', fontSize: '0.85rem', lineHeight: 1.5 }}>
-            Для генерации вашего уникального ключа шифрования введите реальные данные. <br/>
-            <span style={{color: '#ff4444', fontWeight: 600}}>Это необходимо для защиты вашего устройства от взлома. Система автоматически скроет ФИО сразу после входа.</span>
+            Инфо ниже используется только для шифрования профиля. <br />
+            <span style={{ color: '#ff4444', fontWeight: 600 }}>Это гарантирует анонимность. Данные не отображаются в сети и не видны в постах.</span>
           </p>
-          
-          <input 
-            type="text" 
-            placeholder="Ваше полное настоящее ФИО" 
+
+          <input
+            type="text"
+            placeholder="Ваше полное настоящее ФИО"
             value={studentRealName}
             onChange={(e) => setStudentRealName(e.target.value)}
             style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0', marginBottom: '12px' }}
           />
-          <input 
-            type="text" 
-            placeholder="ВАШ НИК (СТРОГО НЕ ВВОДИТЬ НАСТОЯЩЕЕ ИМЯ!)" 
+          <input
+            type="text"
+            placeholder="ВАШ НИК (СТРОГО НЕ ВВОДИТЬ НАСТОЯЩЕЕ ИМЯ!)"
             value={studentNickname}
             onChange={(e) => setStudentNickname(e.target.value)}
             style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0', marginBottom: '12px' }}
           />
-          <input 
-            type="text" 
-            placeholder="Ваш Класс (например, 11А)" 
+          <input
+            type="text"
+            placeholder="Ваш Класс (например, 11А)"
             value={studentClass}
             onChange={(e) => setStudentClass(e.target.value)}
             style={{ width: '100%', padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0', marginBottom: '24px' }}
@@ -486,16 +486,16 @@ function App() {
         <aside className="left-sidebar" style={{ background: 'transparent', borderRight: '1px solid var(--border-color)' }}>
           {role === 'admin' ? (
             <>
-              <h4 style={{padding: '8px 12px', color: '#ff4444', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px', borderBottom: '1px solid var(--border-color)', paddingBottom: '12px', marginBottom: '16px'}}>База Данных</h4>
-              <p style={{padding: '0 12px', fontSize: '0.8rem', color: 'var(--text-secondary)'}}>Все пользователи ({adminUsers.length})</p>
-              
-              <div style={{display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px'}}>
+              <h4 style={{ padding: '8px 12px', color: '#ff4444', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px', borderBottom: '1px solid var(--border-color)', paddingBottom: '12px', marginBottom: '16px' }}>База Данных</h4>
+              <p style={{ padding: '0 12px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Все пользователи ({adminUsers.length})</p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
                 {adminUsers.map(user => (
                   <div key={user.id} style={{ border: '1px solid var(--border-color)', padding: '12px', fontSize: '0.85rem' }}>
                     <div style={{ fontWeight: 600, color: 'white', marginBottom: '4px' }}>{user.fullName} <span style={{ color: 'var(--text-secondary)' }}>({user.schoolClass})</span></div>
                     <div style={{ color: 'var(--text-secondary)', marginBottom: '12px', fontSize: '0.75rem' }}>ID: {user.identityCode}</div>
-                    <button 
-                      className="btn btn-secondary" 
+                    <button
+                      className="btn btn-secondary"
                       style={{ borderRadius: '0', color: '#ff4444', borderColor: '#ff4444', padding: '4px 8px', fontSize: '0.75rem', width: '100%', display: 'flex', justifyContent: 'center', gap: '4px' }}
                       onClick={() => handleDeleteUser(user.id)}
                     >
@@ -511,11 +511,11 @@ function App() {
                 <div className="avatar" style={{ borderRadius: '0', border: '1px solid var(--border-color)', background: 'transparent', color: 'white', fontSize: '10px' }}>ID</div>
                 <span style={{ fontWeight: 400 }}>{String(identity)}</span>
               </div>
-              
-              <div className="divider" style={{margin: '16px 0'}} />
-              <h4 style={{padding: '8px 12px', color: 'var(--text-secondary)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px'}}>Каналы</h4>
+
+              <div className="divider" style={{ margin: '16px 0' }} />
+              <h4 style={{ padding: '8px 12px', color: 'var(--text-secondary)', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px' }}>Каналы</h4>
               <div className="sidebar-item" style={{ borderRadius: '0' }} onClick={() => setActiveView('feed')}>
-                <div className="avatar" style={{borderRadius: '0', background: 'transparent', color: 'white', border: '1px solid var(--text-secondary)'}}>#</div>
+                <div className="avatar" style={{ borderRadius: '0', background: 'transparent', color: 'white', border: '1px solid var(--text-secondary)' }}>#</div>
                 <span style={{ fontWeight: 400 }}>Общий</span>
               </div>
             </>
@@ -524,16 +524,16 @@ function App() {
 
         {/* Content Area */}
         <section className="feed" style={{ maxWidth: '800px', margin: '0 auto', width: '100%' }}>
-          
+
           {activeView === 'settings' ? (
             <div className="feed-container">
               <h2 style={{ marginBottom: '24px', letterSpacing: '2px', textTransform: 'uppercase', borderBottom: '1px solid var(--border-color)', paddingBottom: '12px' }}>Настройки профиля</h2>
-              
+
               <div className="card" style={{ borderRadius: '0' }}>
                 <h3 style={{ marginBottom: '16px', fontSize: '1.1rem' }}>Изменить никнейм</h3>
                 <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     value={tempIdentity}
                     onChange={(e) => setTempIdentity(e.target.value)}
                     style={{ flex: 1, padding: '12px', background: 'transparent', border: '1px solid var(--border-color)', color: 'white', borderRadius: '0' }}
@@ -543,7 +543,7 @@ function App() {
                   </button>
                 </div>
 
-                <div className="divider" style={{margin: '24px 0'}} />
+                <div className="divider" style={{ margin: '24px 0' }} />
 
                 <h3 style={{ marginBottom: '16px', fontSize: '1.1rem', color: '#ff4444' }}>Уничтожить личность</h3>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '24px', fontSize: '0.9rem', lineHeight: 1.5 }}>
@@ -556,14 +556,14 @@ function App() {
             </div>
           ) : (
             <div className="feed-container">
-              <div className="card create-post hover-scale" style={{transform: 'none'}}>
+              <div className="card create-post hover-scale" style={{ transform: 'none' }}>
                 <div className="create-post-top">
                   <div className="avatar" style={{ borderRadius: '0', border: '1px solid var(--border-color)', background: 'transparent', color: 'white', fontSize: '10px' }}>ID</div>
-                  <input 
-                    type="text" 
-                    className="post-input" 
+                  <input
+                    type="text"
+                    className="post-input"
                     style={{ borderRadius: '0', border: '1px solid var(--border-color)', background: 'transparent' }}
-                    placeholder="Написать..." 
+                    placeholder="Написать..."
                     value={postText}
                     onChange={(e) => setPostText(e.target.value)}
                     onKeyDown={handlePostSubmit}
@@ -578,15 +578,15 @@ function App() {
               </div>
 
               {posts.length === 0 ? (
-                <div style={{textAlign: 'center', color: 'var(--text-secondary)', padding: '60px', border: '1px dashed var(--border-color)', letterSpacing: '1px'}}>
+                <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '60px', border: '1px dashed var(--border-color)', letterSpacing: '1px' }}>
                   Пустота.
                 </div>
               ) : (
                 posts.map((post, index) => (
                   <div className="card post" key={post.id || index} style={{ borderRadius: '0', paddingBottom: '16px', position: 'relative' }}>
-                    
+
                     {role === 'admin' && (
-                      <button 
+                      <button
                         onClick={() => handleDeletePost(post.id)}
                         style={{ position: 'absolute', top: '16px', right: '16px', background: 'transparent', border: 'none', color: '#ff4444', cursor: 'pointer' }}
                         title="Удалить пост"
@@ -597,7 +597,7 @@ function App() {
 
                     <div className="post-header" style={{ paddingRight: role === 'admin' ? '40px' : '16px' }}>
                       <div className="post-author">
-                        <div className="avatar" style={{background: 'transparent', color: 'white', border: '1px solid var(--border-color)', borderRadius: '0', fontSize: '10px'}}>
+                        <div className="avatar" style={{ background: 'transparent', color: 'white', border: '1px solid var(--border-color)', borderRadius: '0', fontSize: '10px' }}>
                           {getInitials(post.author)}
                         </div>
                         <div className="author-info">
@@ -605,7 +605,7 @@ function App() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="post-content" style={{ overflow: 'hidden' }}>
                       <p style={{ fontWeight: 300, lineHeight: 1.6, wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>{renderContent(post.content)}</p>
                     </div>
@@ -618,18 +618,18 @@ function App() {
       </main>
 
       {/* Floating Brand Badge */}
-      <div style={{ 
-        position: 'fixed', 
-        bottom: '20px', 
-        right: '20px', 
-        padding: '10px 20px', 
-        background: 'rgba(0,0,0,0.5)', 
-        backdropFilter: 'blur(10px)', 
-        border: '1px solid var(--border-color)', 
-        color: role === 'admin' ? '#ff4444' : '#fff', 
-        fontFamily: 'monospace', 
-        letterSpacing: '3px', 
-        fontSize: '0.75rem', 
+      <div style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        padding: '10px 20px',
+        background: 'rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid var(--border-color)',
+        color: role === 'admin' ? '#ff4444' : '#fff',
+        fontFamily: 'monospace',
+        letterSpacing: '3px',
+        fontSize: '0.75rem',
         textTransform: 'uppercase',
         zIndex: 1000,
         pointerEvents: 'none',
